@@ -3,7 +3,7 @@ import 'package:eva_app/app_router.dart'; // Importa el enrutador
 
 // Este es el widget de tu pantalla principal
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +30,23 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Text(
                   'Tu asistente de seguridad eléctrica',
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 14,
-                  ),
+                  style: TextStyle(color: Colors.black54, fontSize: 14),
                 ),
               ],
             ),
           ],
         ),
+        actions: [
+          // Botón de menú para abrir el endDrawer
+          Builder(
+            builder: (ctx) => IconButton(
+              icon: const Icon(Icons.menu, color: Colors.black87),
+              tooltip: 'Menú',
+              onPressed: () => Scaffold.of(ctx).openEndDrawer(),
+            ),
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
 
       // 2. Cuerpo de la pantalla
@@ -59,41 +67,73 @@ class HomeScreen extends StatelessWidget {
               // 5. Título de la sección
               Text(
                 'Consejos del día',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 16),
 
               // 6. Lista de Consejos del Día
               _buildDailyTipCard(
-                tip: 'No uses enchufes que estén rotos o que produzcan chispas.',
+                tip:
+                    'No uses enchufes que estén rotos o que produzcan chispas.',
               ),
               _buildDailyTipCard(
-                tip: 'Desenchufa los aparatos eléctricos que no estés usando para ahorrar energía.',
+                tip:
+                    'Desenchufa los aparatos eléctricos que no estés usando para ahorrar energía.',
               ),
               _buildDailyTipCard(
-                tip: 'Mantén los cables eléctricos lejos del agua y de fuentes de calor.',
+                tip:
+                    'Mantén los cables eléctricos lejos del agua y de fuentes de calor.',
               ),
             ],
           ),
         ),
       ),
 
-      // 7. Botón Flotante de Ajustes
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navega usando la ruta nombrada
-          Navigator.pushNamed(context, AppRouter.settingsRoute);
-        },
-        backgroundColor: Colors.yellow.shade700,
-        child: Icon(Icons.settings, color: Colors.black87),
-        tooltip: 'Ajustes',
+      // Sidebar derecho con opciones
+      endDrawer: Drawer(
+        child: SafeArea(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(color: Colors.yellow.shade700),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    'Menú',
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const Divider(height: 1),
+              ListTile(
+                leading: const Icon(Icons.person_outline),
+                title: const Text('Perfil'),
+                onTap: () {
+                  Navigator.of(context).pop(); // cerrar drawer
+                  Navigator.pushNamed(context, AppRouter.profileRoute);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.settings_outlined),
+                title: const Text('Ajustes'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.pushNamed(context, AppRouter.settingsRoute);
+                },
+              ),
+            ],
+          ),
+        ),
       ),
+
+      // Se eliminó el botón flotante de Ajustes; ahora está en el menú lateral
     );
   }
-
 
   // --- WIDGETS REUTILIZABLES ---
 
@@ -104,8 +144,7 @@ class HomeScreen extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
         onTap: () {
-          print('Botón de Primeros Auxilios presionado!');
-          // Aquí irá la lógica de primeros auxilios
+          Navigator.pushNamed(context, AppRouter.firstAidRoute);
         },
         borderRadius: BorderRadius.circular(12),
         child: Padding(
@@ -184,15 +223,16 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
-            Icon(Icons.lightbulb_outline, color: Colors.yellow.shade800, size: 28),
+            Icon(
+              Icons.lightbulb_outline,
+              color: Colors.yellow.shade800,
+              size: 28,
+            ),
             SizedBox(width: 16),
             Expanded(
               child: Text(
                 tip,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
               ),
             ),
           ],

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:eva_app/tips/kitchen_tips_screen.dart';
+import 'package:eva_app/tips/overload_tips_screen.dart';
+import 'package:eva_app/tips/child_safety_tips_screen.dart';
+import 'package:eva_app/tips/basic_maintenance_tips_screen.dart';
+import 'package:eva_app/tips/electrical_installations_tips_screen.dart';
+import 'package:eva_app/tips/fire_prevention_tips_screen.dart';
 
 class PreventionTipsScreen extends StatefulWidget {
-  const PreventionTipsScreen({Key? key}) : super(key: key);
+  const PreventionTipsScreen({super.key});
 
   @override
   _PreventionTipsScreenState createState() => _PreventionTipsScreenState();
@@ -15,42 +21,42 @@ class _PreventionTipsScreenState extends State<PreventionTipsScreen> {
       'subtitle': 'Te ayudaré a conocer las mejores prácticas de seguridad',
       'icon': Icons.kitchen_rounded,
       'color': Colors.red.shade400,
-      'onTap': () => print('Tocado: Cocina'),
+      'id': 'kitchen',
     },
     {
       'title': 'Sobrecargas y Extensiones',
       'subtitle': 'Te ayudaré a conocer las mejores prácticas de seguridad',
       'icon': Icons.power_rounded,
       'color': Colors.yellow.shade800,
-      'onTap': () => print('Tocado: Sobrecargas'),
+      'id': 'overload',
     },
     {
       'title': 'Protección para Niños',
       'subtitle': 'Te ayudaré a conocer las mejores prácticas de seguridad',
       'icon': Icons.child_friendly_rounded,
       'color': Colors.blue.shade400,
-      'onTap': () => print('Tocado: Niños'),
+      'id': 'children',
     },
     {
       'title': 'Mantenimiento Básico',
       'subtitle': 'Te ayudaré a conocer las mejores prácticas de seguridad',
       'icon': Icons.build_rounded,
       'color': Colors.green.shade400,
-      'onTap': () => print('Tocado: Mantenimiento'),
+      'id': 'maintenance',
     },
     {
       'title': 'Instalaciones Eléctricas',
       'subtitle': 'Te ayudaré a conocer las mejores prácticas de seguridad',
       'icon': Icons.electrical_services_rounded,
       'color': Colors.orange.shade400,
-      'onTap': () => print('Tocado: Instalaciones'),
+      'id': 'installations',
     },
     {
       'title': 'Prevención de Incendios',
       'subtitle': 'Te ayudaré a conocer las mejores prácticas de seguridad',
       'icon': Icons.fire_extinguisher_rounded,
       'color': Colors.red.shade700,
-      'onTap': () => print('Tocado: Incendios'),
+      'id': 'fires',
     },
   ];
 
@@ -107,7 +113,7 @@ class _PreventionTipsScreenState extends State<PreventionTipsScreen> {
                     subtitle: category['subtitle'],
                     icon: category['icon'],
                     color: category['color'],
-                    onTap: category['onTap'],
+                    onTap: () => _navigateTo(context, category['id']),
                   );
                 },
               ),
@@ -136,8 +142,18 @@ class _PreventionTipsScreenState extends State<PreventionTipsScreen> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Consejos de Eva', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 22)),
-            Text('Aprende a mantener tu hogar seguro', style: TextStyle(color: Colors.black54, fontSize: 14)),
+            Text(
+              'Consejos de Eva',
+              style: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
+            ),
+            Text(
+              'Aprende a mantener tu hogar seguro',
+              style: TextStyle(color: Colors.black54, fontSize: 14),
+            ),
           ],
         ),
       ),
@@ -150,7 +166,12 @@ class _PreventionTipsScreenState extends State<PreventionTipsScreen> {
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 5, offset: Offset(0, 3)),
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
         ],
       ),
       child: TextField(
@@ -191,7 +212,10 @@ class _PreventionTipsScreenState extends State<PreventionTipsScreen> {
               children: [
                 Container(
                   padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+                  decoration: BoxDecoration(
+                    color: color.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   child: Icon(icon, color: color, size: 28),
                 ),
                 SizedBox(width: 16),
@@ -199,18 +223,77 @@ class _PreventionTipsScreenState extends State<PreventionTipsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(title, style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       SizedBox(height: 4),
-                      Text(subtitle, style: TextStyle(fontSize: 14, color: Colors.grey.shade600)),
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                Icon(Icons.arrow_forward_ios, color: Colors.grey.shade400, size: 16),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.grey.shade400,
+                  size: 16,
+                ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  void _navigateTo(BuildContext context, String id) {
+    switch (id) {
+      case 'kitchen':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const KitchenTipsScreen()),
+        );
+        break;
+      case 'overload':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const OverloadTipsScreen()),
+        );
+        break;
+      case 'children':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const ChildSafetyTipsScreen()),
+        );
+        break;
+      case 'maintenance':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const BasicMaintenanceTipsScreen()),
+        );
+        break;
+      case 'installations':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const ElectricalInstallationsTipsScreen(),
+          ),
+        );
+        break;
+      case 'fires':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const FirePreventionTipsScreen()),
+        );
+        break;
+    }
   }
 }
