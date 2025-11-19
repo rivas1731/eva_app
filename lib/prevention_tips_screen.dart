@@ -5,6 +5,7 @@ import 'package:eva_app/tips/child_safety_tips_screen.dart';
 import 'package:eva_app/tips/basic_maintenance_tips_screen.dart';
 import 'package:eva_app/tips/electrical_installations_tips_screen.dart';
 import 'package:eva_app/tips/fire_prevention_tips_screen.dart';
+import 'package:eva_app/widgets/eva_app_bar.dart';
 
 class PreventionTipsScreen extends StatefulWidget {
   const PreventionTipsScreen({super.key});
@@ -95,7 +96,10 @@ class _PreventionTipsScreenState extends State<PreventionTipsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildCustomAppBar(context),
+      appBar: const EvaAppBar(
+        title: 'Consejos de Eva',
+        subtitle: 'Aprende a mantener tu hogar seguro',
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -125,40 +129,6 @@ class _PreventionTipsScreenState extends State<PreventionTipsScreen> {
   }
 
   // --- WIDGETS REUTILIZABLES ---
-
-  PreferredSizeWidget _buildCustomAppBar(BuildContext context) {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(100.0),
-      child: AppBar(
-        backgroundColor: Colors.yellow.shade700,
-        elevation: 0,
-        leadingWidth: 100,
-        leading: TextButton.icon(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: Icon(Icons.arrow_back_ios, size: 16),
-          label: Text('Volver', style: TextStyle(fontSize: 16)),
-          style: TextButton.styleFrom(foregroundColor: Colors.black87),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Consejos de Eva',
-              style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-              ),
-            ),
-            Text(
-              'Aprende a mantener tu hogar seguro',
-              style: TextStyle(color: Colors.black54, fontSize: 14),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   Widget _buildSearchBar() {
     return Container(

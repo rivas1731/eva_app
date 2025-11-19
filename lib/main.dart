@@ -1,7 +1,21 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart' as google_gemini;
 import 'package:eva_app/app_router.dart'; // Importa el enrutador
 
-void main() {
+const String _apiKey = String.fromEnvironment('GEMINI_API_KEY');
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (_apiKey.isEmpty) {
+    throw FlutterError(
+      'GEMINI_API_KEY no está definido. Ejecuta con --dart-define=GEMINI_API_KEY=TU_API_KEY',
+    );
+  }
+
+  google_gemini.Gemini.init(apiKey: _apiKey, enableDebugging: kDebugMode);
+
   runApp(const MyApp());
 }
 

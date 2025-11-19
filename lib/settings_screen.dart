@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eva_app/main.dart'; // Importa main.dart para acceder al notificador
+import 'package:eva_app/widgets/eva_app_bar.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -17,10 +18,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final currentScale = _pendingScale ?? MyApp.textScaleNotifier.value;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Ajustes'),
-        backgroundColor: Colors.yellow.shade700,
-        foregroundColor: Colors.black87,
+      appBar: const EvaAppBar(
+        title: 'Ajustes',
+        subtitle: 'Personaliza la experiencia de Eva',
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

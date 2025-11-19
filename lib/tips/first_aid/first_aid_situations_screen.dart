@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eva_app/app_router.dart';
+import 'package:eva_app/widgets/eva_app_bar.dart';
 
 class FirstAidSituationsScreen extends StatefulWidget {
   const FirstAidSituationsScreen({super.key});
@@ -77,36 +78,9 @@ class _FirstAidSituationsScreenState extends State<FirstAidSituationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100),
-        child: AppBar(
-          backgroundColor: Colors.yellow.shade700,
-          elevation: 0,
-          leadingWidth: 100,
-          leading: TextButton.icon(
-            onPressed: () => Navigator.of(context).pop(),
-            icon: const Icon(Icons.arrow_back_ios, size: 16),
-            label: const Text('Volver', style: TextStyle(fontSize: 16)),
-            style: TextButton.styleFrom(foregroundColor: Colors.black87),
-          ),
-          title: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Primeros Auxilios',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                ),
-              ),
-              Text(
-                'Qué hacer en cada situación',
-                style: TextStyle(color: Colors.black54, fontSize: 14),
-              ),
-            ],
-          ),
-        ),
+      appBar: const EvaAppBar(
+        title: 'Primeros Auxilios',
+        subtitle: 'Qué hacer en cada situación',
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

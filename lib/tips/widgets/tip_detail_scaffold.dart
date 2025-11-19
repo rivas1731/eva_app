@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:eva_app/widgets/eva_app_bar.dart';
 
 class TipItem {
   final IconData icon;
@@ -28,10 +29,9 @@ class TipDetailScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.yellow.shade700,
-        foregroundColor: Colors.black87,
+      appBar: EvaAppBar(
+        title: title,
+        subtitle: 'Recomendaciones de Eva para ti',
       ),
       body: CustomScrollView(
         slivers: [
